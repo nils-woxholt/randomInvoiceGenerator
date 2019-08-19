@@ -1,0 +1,9 @@
+﻿@model invoice_generator.Models.Order
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_CleanLayout";
+}
+
+
+<partial name="@($"_template{ViewBag.TemplateID}")" for="@Model" />

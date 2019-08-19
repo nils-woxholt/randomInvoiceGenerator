@@ -1,0 +1,116 @@
+﻿@model invoice_generator.Models.Order
+
+<style>
+    table.table-bordered td, 
+    table.table-bordered th {border-color: black;}
+</style>
+
+<h1>@Html.DisplayFor(model => model.Customer.CompanyName)</h1>
+
+<div>
+    <h4>Purchase Order: @Model.OrderNumber</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.ShipTo1)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.ShipTo1)
+                    <br />
+                    @Html.DisplayFor(model => model.Customer.ShipTo2)
+                    <br />
+                    @Html.DisplayFor(model => model.Customer.ShipTo3)
+                    <br />
+                    @Html.DisplayFor(model => model.Customer.ShipTo4)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.Telephone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.Telephone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.Fax)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.Fax)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.Email)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <strong>@Html.DisplayNameFor(model => model.Customer.ContactPerson):</strong> @Html.DisplayFor(model => model.Customer.ContactPerson)
+                </td>
+                <td>
+                    <strong>@Html.DisplayNameFor(model => model.Customer.CustomerCode):</strong> @Html.DisplayFor(model => model.Customer.CustomerCode)
+                </td>
+                <td>
+                    <strong>@Html.DisplayNameFor(model => model.Customer.TaxNumber):</strong> @Html.DisplayFor(model => model.Customer.TaxNumber)
+                </td>
+                <td>
+                    <strong>@Html.DisplayNameFor(model => model.OrderDate):</strong> @Model.OrderDate.ToString("dd MMM yyyy")
+                </td>
+                <td>
+                    <strong>@Html.DisplayNameFor(model => model.OrderNumber):</strong> @Model.OrderNumber
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+    
+<div class="row">
+   <table class="table table-bordered">
+       <thead>
+           <tr>
+               <th>Code</th>
+               <th>Description</th>
+               <th class="text-right">Qty</th>
+               <th class="text-right">Unit Price</th>
+               <th class="text-right">Price</th>
+           </tr>
+       </thead>
+       <tbody>
+           @foreach (var item in Model.OrderLines)
+           {
+           <tr>
+               <td><nobr>@item.StockItem.Code</nobr></td>
+               <td>@item.StockItem.Description</td>
+               <td class="text-right">@item.Qty</td>
+               <td class="text-right">@item.StockItem.UnitPrice.ToString("0.00")</td>
+               <td class="text-right">@item.Price.ToString("0.00")</td>
+           </tr>
+           }
+       </tbody>
+       <tfoot>
+           <tr>
+               <td class="text-right" colspan="4"><strong>Shipping:</strong></td>
+               <td class="text-right">@Model.Shipping.ToString("0.00")</td>
+           </tr>         
+           <tr>          
+               <td class="text-right" colspan="4"><strong>Tax:</strong></td>
+               <td class="text-right">@Model.Tax.ToString("0.00")</td>
+           </tr>         
+           <tr>          
+               <td class="text-right" colspan="4"><strong>Total:</strong></td>
+               <td class="text-right">@Model.Total.ToString("0.00")</td>
+           </tr>
+       </tfoot>
+   </table>
+</div>
+
+<div class="row">
+    <div>
+        @Model.Comments
+    </div>
+</div>
