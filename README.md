@@ -1,4 +1,4 @@
 # randomInvoiceGenerator
 Generate Random Invoices / Orders
 
-use to test nuances in Froms Recognizer
+I created this to test how Forms Recognizer reacts to subtle changes in invoice layout
